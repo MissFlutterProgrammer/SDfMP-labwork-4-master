@@ -1,60 +1,73 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:planner/consts/consts.dart';
 import 'package:planner/db/db_helper.dart';
 import 'package:planner/models/user.dart';
 import 'package:planner/pages/welcome_page.dart';
-import 'package:splashscreen/splashscreen.dart';
-
 import 'main_page.dart';
 
 class SplashscreenPage extends StatefulWidget {
-  const SplashscreenPage({Key? key}) : super(key: key);
-
+  const SplashscreenPage({super.key});
 
   @override
   _SplashscreenPageState createState() => _SplashscreenPageState();
 }
 
 class _SplashscreenPageState extends State<SplashscreenPage> {
-
   Widget widgetNavigate = const WelcomePage();
 
-
-  Future<Widget> loadPage() async {
-
+  Future<void> loadPage() async {
     User? user = await DatabaseHelper.instance.findAuthUser();
-    if (user==null){
-      return const WelcomePage();
-    } else{
-      return MainPage(index: 0, user: user);
-    }
-  }
-
-  void initWidget(){
-    loadPage().then((value) {
-      setState(() {
-        widgetNavigate=value;
-      });
+    setState(() {
+      widgetNavigate =
+          user == null ? const WelcomePage() : MainPage(index: 0, user: user);
     });
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    initWidget();
+    loadPage();
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreen(
-      seconds: 5,
-      navigateAfterSeconds: widgetNavigate,
+    return Scaffold(
       backgroundColor: Consts.bgColor,
-      image: Image.asset("assets/icons/logo.png",color: Consts.textColor,colorBlendMode: BlendMode.modulate,
+      body: Stack(
+        children: [
+          Center(
+            child: Image.asset(
+              "assets/icons/logo.png",
+              color: Consts.textColor,
+              colorBlendMode: BlendMode.modulate,
+              width: Consts.getWidth(context) / 4,
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Consts.textColor),
+              ),
+            ),
+          ),
+        ],
       ),
-      photoSize: Consts.getWidth(context)/4,
-      loaderColor: Colors.transparent,
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => widgetNavigate),
+      );
+    });
   }
 }

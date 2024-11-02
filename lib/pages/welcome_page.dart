@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:planner/pages/sign_in_page.dart';
 import 'package:planner/pages/sign_up_page.dart';
-
 import '../consts/consts.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  const WelcomePage({super.key});
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -27,39 +27,56 @@ class _WelcomePageState extends State<WelcomePage> {
                 padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Consts.textColor,
-                      fixedSize: Size(Consts.getWidth(context), 45)),
+                    backgroundColor: Consts.textColor,
+                    fixedSize: Size(
+                      Consts.getWidth(context),
+                      45,
+                    ),
+                  ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignInPage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignInPage(),
+                      ),
+                    );
                   },
                   child: Text(
                     "Sign in",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.white),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?",
-                      style: TextStyle(fontSize: 20, color: Consts.textColor)),
+                  Text(
+                    "Don't have an account?",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Consts.textColor,
+                    ),
+                  ),
                   InkWell(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpPage()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpPage(),
+                          ),
+                        );
                       },
                       child: Text(
                         " Sign up",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Consts.textColor),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Consts.textColor,
+                        ),
                       ))
                 ],
               ),

@@ -5,22 +5,23 @@ class User {
   final String passwordHash;
   final int isAuthorized;
 
-  User({required this.id,
+  User({
+    required this.id,
     required this.username,
     required this.email,
     required this.passwordHash,
-    required this.isAuthorized});
+    required this.isAuthorized,
+  });
 
-  factory User.fromJson(Map<String, dynamic> json) =>
-      User(
-          id: json["id"],
-          username: json["username"],
-          email: json["email"],
-          passwordHash: json["passwordHash"],
-          isAuthorized: json["isAuthorized"],);
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        username: json["username"],
+        email: json["email"],
+        passwordHash: json["passwordHash"],
+        isAuthorized: json["isAuthorized"],
+      );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "username": username,
         "email": email,

@@ -1,6 +1,6 @@
-import 'dart:io';
-import 'dart:typed_data';
+// ignore_for_file: library_private_types_in_public_api, avoid_print, use_build_context_synchronously
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,9 +13,9 @@ import 'package:planner/widgets/note_form_widget.dart';
 
 class AddNotePage extends StatefulWidget {
   const AddNotePage({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   final User user;
 
@@ -46,7 +46,6 @@ class _AddNotePageState extends State<AddNotePage> {
     }
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -54,43 +53,54 @@ class _AddNotePageState extends State<AddNotePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          "Create Note",
-          style: TextStyle(fontSize: 18, color: Consts.textColor),
-        ),
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Consts.textColor),
         backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
-        actions: [buildButton()],
-      ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        Container(
-            alignment: Alignment.center,
-            child: Form(
-              key: _formKey,
-              child: NoteFormWidget(
-                title: title,
-                description: description,
-                onChangedTitle: (title) => setState(() => this.title = title),
-                onChangedDescription: (description) =>
-                    setState(() => this.description = description),
-              ),
-            )),
-        Container(
-          alignment: Alignment.center,
-          child: IconButton(
-              onPressed: () {pickImage();}, icon: Image.asset("assets/icons/image.png")),
+        appBar: AppBar(
+          title: Text(
+            "Create Note",
+            style: TextStyle(fontSize: 18, color: Consts.textColor),
+          ),
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Consts.textColor),
+          backgroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+          actions: [buildButton()],
         ),
-        if (imgBytes.length != 1)
-          Container(
-            padding: EdgeInsets.all(5),
-            width: 300,
-            child: Image.memory(imgBytes),
-          )
-      ]));
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              child: Form(
+                key: _formKey,
+                child: NoteFormWidget(
+                  title: title,
+                  description: description,
+                  onChangedTitle: (title) => setState(() => this.title = title),
+                  onChangedDescription: (description) =>
+                      setState(() => this.description = description),
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: IconButton(
+                onPressed: () {
+                  pickImage();
+                },
+                icon: Image.asset(
+                  "assets/icons/image.png",
+                ),
+              ),
+            ),
+            if (imgBytes.length != 1)
+              Container(
+                padding: EdgeInsets.all(5),
+                width: 300,
+                child: Image.memory(imgBytes),
+              )
+          ],
+        ),
+      );
 
   Widget buildButton() {
     final isFormValid = title.isNotEmpty && description.isNotEmpty;
@@ -99,13 +109,16 @@ class _AddNotePageState extends State<AddNotePage> {
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: Colors.white, shadowColor: Colors.transparent),
+          backgroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+        ),
         onPressed: addOrUpdateNote,
         child: Text(
           'Save',
           style: TextStyle(
-              fontSize: 18,
-              color: isFormValid ? Consts.textColor : Colors.grey.shade700),
+            fontSize: 18,
+            color: isFormValid ? Consts.textColor : Colors.grey.shade700,
+          ),
         ),
       ),
     );
@@ -130,7 +143,7 @@ class _AddNotePageState extends State<AddNotePage> {
     );
     await DatabaseHelper.instance.addNote(note);
 
-    if(imgBytes.length>1) {
+    if (imgBytes.length > 1) {
       int idImage = await DatabaseHelper.instance.getImagesCount() + 1;
       final img = UploadedImage(id: idImage, idNote: idNote, bytes: imgBytes);
       await DatabaseHelper.instance.addImage(img);

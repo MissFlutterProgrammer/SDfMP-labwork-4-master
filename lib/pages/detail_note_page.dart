@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:planner/consts/consts.dart';
 import 'package:planner/db/db_helper.dart';
@@ -10,9 +9,9 @@ class NoteDetailPage extends StatefulWidget {
   final int noteId;
 
   const NoteDetailPage({
-    Key? key,
+    super.key,
     required this.noteId,
-  }) : super(key: key);
+  });
 
   @override
   _NoteDetailPageState createState() => _NoteDetailPageState();

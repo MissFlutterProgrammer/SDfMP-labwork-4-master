@@ -1,6 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
-
 import 'package:planner/models/event.dart';
 import 'package:planner/models/note.dart';
 import 'package:planner/models/uploaded_image.dart';
@@ -72,9 +73,8 @@ class DatabaseHelper {
   Future<List<User>> getUsers() async {
     Database db = await instance.database;
     var results = await db.query('users');
-    List<User> usersList = results.isNotEmpty
-        ? results.map((c) => User.fromJson(c)).toList()
-        : [];
+    List<User> usersList =
+        results.isNotEmpty ? results.map((c) => User.fromJson(c)).toList() : [];
     return usersList;
   }
 
@@ -107,11 +107,12 @@ class DatabaseHelper {
 
   Future<UploadedImage?> getImage(int idNote) async {
     Database db = await instance.database;
-    var results = await db.query('uploaded_image',where: 'idNote = ?', whereArgs: [idNote]);
+    var results = await db
+        .query('uploaded_image', where: 'idNote = ?', whereArgs: [idNote]);
     List<UploadedImage> imagesList = results.isNotEmpty
         ? results.map((c) => UploadedImage.fromJson(c)).toList()
         : [];
-    if (imagesList.isEmpty){
+    if (imagesList.isEmpty) {
       return null;
     }
     return imagesList.first;
@@ -133,7 +134,8 @@ class DatabaseHelper {
 
   Future<int> deleteImage(int idNote) async {
     Database db = await instance.database;
-    return await db.delete('uploaded_image', where: "idNote = ?", whereArgs: [idNote]);
+    return await db
+        .delete('uploaded_image', where: "idNote = ?", whereArgs: [idNote]);
   }
 
   Future<int> addEvent(Event event) async {
@@ -148,35 +150,36 @@ class DatabaseHelper {
 
   Future<int> updateEvent(Event event) async {
     Database db = await instance.database;
-    return await db.update('events', event.toJson(), where: 'id = ?', whereArgs: [event.id], );
+    return await db.update(
+      'events',
+      event.toJson(),
+      where: 'id = ?',
+      whereArgs: [event.id],
+    );
   }
 
   Future<Note> getNote(int id) async {
     Database db = await instance.database;
-    var results = await db.query('notes',where: 'id = ?', whereArgs: [id]);
-    List<Note> notesList = results.isNotEmpty
-        ? results.map((c) => Note.fromJson(c)).toList()
-        : [];
+    var results = await db.query('notes', where: 'id = ?', whereArgs: [id]);
+    List<Note> notesList =
+        results.isNotEmpty ? results.map((c) => Note.fromJson(c)).toList() : [];
     return notesList.first;
   }
 
-
-
   Future<List<Note>> getNotes(int idUser) async {
     Database db = await instance.database;
-    var results = await db.query('notes',where: 'idUser = ?', whereArgs: [idUser]);
-    List<Note> notesList = results.isNotEmpty
-        ? results.map((c) => Note.fromJson(c)).toList()
-        : [];
+    var results =
+        await db.query('notes', where: 'idUser = ?', whereArgs: [idUser]);
+    List<Note> notesList =
+        results.isNotEmpty ? results.map((c) => Note.fromJson(c)).toList() : [];
     return notesList;
   }
 
   Future<int> getNotesCount() async {
     Database db = await instance.database;
     var results = await db.query('notes');
-    List<Note> notesList = results.isNotEmpty
-        ? results.map((c) => Note.fromJson(c)).toList()
-        : [];
+    List<Note> notesList =
+        results.isNotEmpty ? results.map((c) => Note.fromJson(c)).toList() : [];
     return notesList.length;
   }
 
@@ -190,14 +193,14 @@ class DatabaseHelper {
     return await db.delete('notes', where: 'id = ?', whereArgs: [id]);
   }
 
-
   Future<User?> findAuthUser() async {
     var results = await getUsers();
     User? user;
     for (var element in results) {
-      print("id ${element.id} ${element.username}  auth ${element.isAuthorized}");
-      if (element.isAuthorized==1){
-        user=element;
+      print(
+          "id ${element.id} ${element.username}  auth ${element.isAuthorized}");
+      if (element.isAuthorized == 1) {
+        user = element;
         return user;
       }
     }
@@ -206,9 +209,9 @@ class DatabaseHelper {
 
   Future<int> updateUser(User user) async {
     Database db = await instance.database;
-    return await db.update('users', user.toJson(), where: 'id = ?', whereArgs: [user.id]);
+    return await db
+        .update('users', user.toJson(), where: 'id = ?', whereArgs: [user.id]);
   }
-
 
   Future<int> getUsersCount() async {
     var results = await getUsers();
@@ -224,8 +227,8 @@ class DatabaseHelper {
     var results = await getUsers();
     User? user;
     for (var element in results) {
-      if (element.email==email){
-        user=element;
+      if (element.email == email) {
+        user = element;
         return user;
       }
     }

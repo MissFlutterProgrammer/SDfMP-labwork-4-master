@@ -1,14 +1,17 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:planner/consts/consts.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField(
-      {Key? key,
-      required this.label,
-      required this.controller,
-      required this.isPasswordField,
-      required this.initialValue, required this.inputType,})
-      : super(key: key);
+  const CustomTextField({
+    super.key,
+    required this.label,
+    required this.controller,
+    required this.isPasswordField,
+    required this.initialValue,
+    required this.inputType,
+  });
 
   final String label;
   final TextEditingController controller;
@@ -26,7 +29,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     _passwordVisible = false;
-    widget.controller.text=widget.initialValue;
+    widget.controller.text = widget.initialValue;
     super.initState();
   }
 
@@ -39,7 +42,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         keyboardType: widget.inputType,
         style: TextStyle(color: Colors.black, fontSize: 15),
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: Consts.textColor, fontSize: 15),
+          labelStyle: TextStyle(
+            color: Consts.textColor,
+            fontSize: 15,
+          ),
           labelText: widget.label,
           suffixIcon: IconButton(
             onPressed: () {
@@ -56,7 +62,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderSide: BorderSide(color: Colors.grey),
           ),
           focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Consts.btnColor, width: 3),
+            borderSide: BorderSide(
+              color: Consts.btnColor,
+              width: 3,
+            ),
           ),
         ),
       );
@@ -66,13 +75,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
         style: TextStyle(color: Colors.black, fontSize: 15),
         keyboardType: widget.inputType,
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: Consts.textColor, fontSize: 15),
+          labelStyle: TextStyle(
+            color: Consts.textColor,
+            fontSize: 15,
+          ),
           labelText: widget.label,
           enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
           ),
           focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Consts.btnColor, width: 3),
+            borderSide: BorderSide(
+              color: Consts.btnColor,
+              width: 3,
+            ),
           ),
         ),
       );

@@ -9,10 +9,22 @@ class Consts {
     return MediaQuery.of(context).size.height;
   }
 
-  static const horoscopeAPIUrl =
-      'https://nypost.com/horoscopes/';
+  static const horoscopeAPIUrl = 'https://nypost.com/horoscopes/';
 
-  static const zodiacSigns = <String>{"aquarius","pisces","aries","taurus","gemini","cancer","leo","virgo","libra","scorpio","sagittarius","capricorn"};
+  static const zodiacSigns = <String>{
+    "aquarius",
+    "pisces",
+    "aries",
+    "taurus",
+    "gemini",
+    "cancer",
+    "leo",
+    "virgo",
+    "libra",
+    "scorpio",
+    "sagittarius",
+    "capricorn"
+  };
 
   static const okStatus = 200;
 
@@ -27,7 +39,6 @@ class Consts {
   static const falseDB = 0;
 
   static const titles = {"Calm", "Anxious", "Happy", "Sad", "Relax"};
-
 
   static const paths = {
     "assets/images/calm.png",
