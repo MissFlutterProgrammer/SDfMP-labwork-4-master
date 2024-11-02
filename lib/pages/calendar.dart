@@ -19,7 +19,7 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  Map<DateTime, List<Event>> selectedEvents = Map();
+  Map<DateTime, List<Event>> selectedEvents = {};
   List<Event> events = List.empty(growable: true);
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();

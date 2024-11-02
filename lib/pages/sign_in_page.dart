@@ -188,7 +188,7 @@ class _SignInPageState extends State<SignInPage> {
 
   String checkFields() {
     if (!emailController.text.contains(RegExp(r'(?=.*[@.])'))) {
-      return "Email must contain \'@\' and \'.\' symbols!";
+      return "Email must contain '@' and '.' symbols!";
     } else {
       return "";
     }

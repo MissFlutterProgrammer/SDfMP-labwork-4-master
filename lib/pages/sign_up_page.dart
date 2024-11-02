@@ -210,11 +210,11 @@ class _SignUpPageState extends State<SignUpPage> {
       return "Username shouldn't be empty!";
     }
     if (!emailController.text.contains(RegExp(r'(?=.*[@.])'))) {
-      return "Email must contain \'@\' and \'.\' symbols!";
+      return "Email must contain '@' and '.' symbols!";
     }
     if (!passwordController.text
         .contains(RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'))) {
-      return "Password\'s length must be at least 8 symbols and contains at least one upper and lower case letters and digit!";
+      return "Password's length must be at least 8 symbols and contains at least one upper and lower case letters and digit!";
     } else {
       return "";
     }
